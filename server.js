@@ -1,34 +1,39 @@
 require("dotenv").config();
-
 const cors = require("cors");
 const express = require("express");
 const orderRoutes = require("./routes/orders");
 const mongoose = require("mongoose");
+const { initializeSocket } = require("./sockets/socket");
 
-//express app
+// Express app
 const app = express();
 
-//constants
+// Constants
 const PORT = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI;
 
-//connect to db
+// Connect to MongoDB
 const connectDB = async () => {
   try {
     await mongoose.connect(MONGO_URI);
     console.log("Connected to MongoDB");
 
-    app.listen(PORT, () => {
+    // Start the server after successful database connection
+    const server = app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
+
+    // Initialize socket communication
+    initializeSocket(server);
   } catch (error) {
     console.log(error);
   }
 };
 
+// Connect to the database
 connectDB();
 
-//middleware
+// Middleware
 app.use(express.json());
 app.use(cors());
 app.use((req, res, next) => {
@@ -36,5 +41,5 @@ app.use((req, res, next) => {
   next();
 });
 
-//routes
+// Routes
 app.use("/api/orders", orderRoutes);
