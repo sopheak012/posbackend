@@ -3,22 +3,30 @@ const socketio = require("socket.io");
 let io;
 
 const initializeSocket = (server) => {
-  io = socketio(server);
+  io = socketio(server, {
+    cors: {
+      origin: "http://localhost:3000", // Replace with your frontend origin
+      methods: ["GET", "POST"],
+    },
+  });
 
   io.on("connection", (socket) => {
     console.log("A user connected to the socket");
 
-    // Handle socket events here
-    // For example, you can listen for events and emit data to connected clients
+    socket.on("orderSubmitted", (data) => {
+      console.log("Order submitted:", data);
+
+      // Emit the updated data to all connected clients
+      io.emit("orderUpdated", data);
+    });
 
     socket.on("disconnect", () => {
       console.log("A user disconnected from the socket");
-      // Clean up any resources or handle disconnect logic
     });
   });
 };
 
 module.exports = {
   initializeSocket,
-  io, // Export the 'io' object if you need to access it in other files
+  io,
 };

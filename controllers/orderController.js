@@ -115,10 +115,23 @@ const updateOrder = async (req, res) => {
   }
 };
 
+// Delete all orders
+const deleteAllOrders = async (req, res) => {
+  try {
+    await Order.deleteMany();
+    res.status(200).json({ message: "All orders deleted successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "An error occurred while deleting all orders" });
+  }
+};
+
 module.exports = {
   getOrders,
   getOrder,
   createOrder,
   deleteOrder,
   updateOrder,
+  deleteAllOrders,
 };

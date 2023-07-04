@@ -33,9 +33,12 @@ const connectDB = async () => {
 // Connect to the database
 connectDB();
 
+// CORS configuration
+app.use(cors());
+
 // Middleware
 app.use(express.json());
-app.use(cors());
+
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
