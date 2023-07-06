@@ -10,7 +10,7 @@ const signup = async (req, res) => {
   try {
     const user = await User.signUp(username, email, password);
     const token = await jwt.sign({ _id: user._id }, SECRET_KEY, {
-      expiresIn: "3d",
+      expiresIn: "1d",
     });
     res.status(201).json({ username, email, token });
   } catch (error) {
