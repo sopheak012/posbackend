@@ -1,5 +1,4 @@
 const express = require("express");
-const Order = require("../models/OrderModel");
 const {
   createOrder,
   getOrders,

@@ -1,8 +1,11 @@
 require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
-const orderRoutes = require("./routes/orders");
 const mongoose = require("mongoose");
+
+const orderRoutes = require("./routes/orderRoutes");
+const userRoutes = require("./routes/userRoutes");
+
 const { initializeSocket } = require("./sockets/socket");
 
 // Express app
@@ -46,3 +49,4 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/api/orders", orderRoutes);
+app.use("/api/user", userRoutes);
