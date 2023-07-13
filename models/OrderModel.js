@@ -15,7 +15,7 @@ const pizzaSchema = new Schema({
 });
 
 const drinkSchema = new Schema({
-  drink: {
+  name: {
     type: String,
     required: true,
   },

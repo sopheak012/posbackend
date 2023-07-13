@@ -6,9 +6,14 @@ const getOrders = async (req, res) => {
     const orders = await Order.find().sort({ orderTimeStamp: -1 });
     res.status(200).json(orders);
   } catch (error) {
+    console.error("Error retrieving orders:", error); // Log the error for debugging purposes
+
     res
       .status(500)
-      .json({ error: "An error occurred while retrieving the orders" });
+      .json({
+        error: "Failed to retrieve the orders",
+        detailedError: error.message,
+      });
   }
 };
 
@@ -22,9 +27,14 @@ const getOrder = async (req, res) => {
     }
     res.status(200).json(order);
   } catch (error) {
+    console.error("Error retrieving order:", error); // Log the error for debugging purposes
+
     res
       .status(500)
-      .json({ error: "An error occurred while retrieving the order" });
+      .json({
+        error: "Failed to retrieve the order",
+        detailedError: error.message,
+      });
   }
 };
 
@@ -59,9 +69,14 @@ const createOrder = async (req, res) => {
 
     res.status(201).json(order);
   } catch (error) {
+    console.error("Error creating order:", error); // Log the error for debugging purposes
+
     res
       .status(500)
-      .json({ error: "An error occurred while creating the order" });
+      .json({
+        error: "Failed to create the order",
+        detailedError: error.message,
+      });
   }
 };
 
@@ -76,9 +91,14 @@ const deleteOrder = async (req, res) => {
     await order.remove();
     res.status(200).json({ message: "Order deleted successfully" });
   } catch (error) {
+    console.error("Error deleting order:", error); // Log the error for debugging purposes
+
     res
       .status(500)
-      .json({ error: "An error occurred while deleting the order" });
+      .json({
+        error: "Failed to delete the order",
+        detailedError: error.message,
+      });
   }
 };
 
@@ -109,9 +129,14 @@ const updateOrder = async (req, res) => {
     const updatedOrder = await order.save();
     res.status(200).json(updatedOrder);
   } catch (error) {
+    console.error("Error updating order:", error); // Log the error for debugging purposes
+
     res
       .status(500)
-      .json({ error: "An error occurred while updating the order" });
+      .json({
+        error: "Failed to update the order",
+        detailedError: error.message,
+      });
   }
 };
 
@@ -121,9 +146,14 @@ const deleteAllOrders = async (req, res) => {
     await Order.deleteMany();
     res.status(200).json({ message: "All orders deleted successfully" });
   } catch (error) {
+    console.error("Error deleting all orders:", error); // Log the error for debugging purposes
+
     res
       .status(500)
-      .json({ error: "An error occurred while deleting all orders" });
+      .json({
+        error: "Failed to delete all orders",
+        detailedError: error.message,
+      });
   }
 };
 
