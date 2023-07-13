@@ -12,7 +12,7 @@ const express = require("express");
 const router = express.Router();
 
 // require auth for all order routes
-//router.use(requireAuth);
+router.use(requireAuth);
 
 // Order routes
 router.get("/", getOrders);
