@@ -31,6 +31,10 @@ const orderSchema = new Schema(
       type: Number,
       required: true,
     },
+    user: {
+      type: String, // Changed the type to String
+      required: true,
+    },
     pizzas: {
       type: [pizzaSchema],
       required: true,
@@ -44,7 +48,6 @@ const orderSchema = new Schema(
       required: true,
     },
     orderTimeStamp: {
-      // Rename the field to avoid conflicts
       type: Date,
       default: Date.now,
     },
