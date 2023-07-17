@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 
 const orderRoutes = require("./routes/orderRoutes");
 const userRoutes = require("./routes/userRoutes");
+const homeRoutes = require("./routes/homeRoutes");
 
 const { initializeSocket } = require("./sockets/socket");
 
@@ -50,3 +51,4 @@ app.use((req, res, next) => {
 // Routes
 app.use("/api/orders", orderRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/home", homeRoutes);
