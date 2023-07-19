@@ -25,14 +25,21 @@ const getTodayOverview = async (req, res) => {
     });
 
     // Calculate today's sales, order count, and average order cost
-    const totalSales = orders.reduce((sum, order) => sum + order.total, 0);
+    const totalSales = orders.reduce(
+      (sum, order) => sum + parseFloat(order.total.toString()),
+      0
+    );
     const orderCount = orders.length;
     const averageOrderCost = orderCount > 0 ? totalSales / orderCount : 0;
 
+    // Format the values to dollars and cents
+    const formattedTotalSales = totalSales.toFixed(2);
+    const formattedAverageOrderCost = averageOrderCost.toFixed(2);
+
     res.status(200).json({
-      totalSales,
+      totalSales: formattedTotalSales,
       orderCount,
-      averageOrderCost,
+      averageOrderCost: formattedAverageOrderCost,
     });
   } catch (error) {
     console.error("Error retrieving today's overview:", error);
