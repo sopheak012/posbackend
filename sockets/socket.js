@@ -5,7 +5,7 @@ let io;
 const initializeSocket = (server) => {
   io = socketio(server, {
     cors: {
-      origin: "https://pos-client-o6c1.onrender.com", // Replace with your frontend origin
+      origin: "http://localhost:3000", // Replace with your frontend origin
       methods: ["GET", "POST"],
     },
   });
@@ -13,11 +13,16 @@ const initializeSocket = (server) => {
   io.on("connection", (socket) => {
     console.log("A user connected to the socket");
 
-    socket.on("orderSubmitted", (data) => {
-      console.log("Order submitted:", data);
+    //joinRoom socket
+    socket.on("joinRoom", (room) => {
+      socket.join(room);
+      console.log(`User joined room: ${room}`);
+    });
 
-      // Emit the updated data to all connected clients
-      io.emit("orderUpdated", data);
+    socket.on("orderSubmitted", (username) => {
+      console.log(`Order updated to user ${username}`);
+
+      io.to(username).emit("orderUpdated");
     });
 
     socket.on("disconnect", () => {
