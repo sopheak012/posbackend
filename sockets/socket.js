@@ -5,7 +5,7 @@ let io;
 const initializeSocket = (server) => {
   io = socketio(server, {
     cors: {
-      origin: "http://localhost:3000", // Replace with your frontend origin
+      origin: "https://pos-client-o6c1.onrender.com", // Replace with your frontend origin
       methods: ["GET", "POST"],
     },
   });
